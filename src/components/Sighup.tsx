@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import { useRouter } from "next/navigation";
 
 function Sighup() {
   const [formData, setFormData] = useState({
@@ -8,6 +9,8 @@ function Sighup() {
     email: "",
     password: "",
   });
+
+  const router = useRouter();
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -59,7 +62,15 @@ function Sighup() {
           Sign Up
         </button>
       </form>
-      <p>Already have an account? <span className="font-semibold text-blue-900 cursor-pointer">Log In</span></p>
+      <p>
+        Already have an account?{" "}
+        <span
+          className="font-semibold text-blue-900 cursor-pointer"
+          onClick={() => router.push("/login")}
+        >
+          Log In
+        </span>
+      </p>
     </div>
   );
 }
