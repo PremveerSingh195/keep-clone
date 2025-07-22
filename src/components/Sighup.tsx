@@ -4,8 +4,8 @@ import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 
 function Sighup() {
-  const [formData, setFormData] = useState({
-    name: "",
+  const [signupData, setSignupData] = useState({
+    username: "",
     email: "",
     password: "",
   });
@@ -13,7 +13,7 @@ function Sighup() {
   const router = useRouter();
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    setSignupData({ ...signupData, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = () => {};
@@ -30,8 +30,8 @@ function Sighup() {
           <label>Name</label>
           <input
             type="text"
-            name="name"
-            value={formData.name}
+            name="username"
+            value={signupData.username}
             onChange={handleInputChange}
             className="border rounded-xl px-2 py-1"
             required
@@ -41,6 +41,8 @@ function Sighup() {
           <label>Email</label>
           <input
             type="email"
+            name="email"
+            value={signupData.email}
             className="border rounded-xl px-2 py-1"
             onChange={handleInputChange}
             required
@@ -50,6 +52,8 @@ function Sighup() {
           <label>Password</label>
           <input
             type="password"
+            name="password"
+            value={signupData.password}
             className="border rounded-xl px-2 py-1"
             onChange={handleInputChange}
             required
@@ -66,7 +70,7 @@ function Sighup() {
         Already have an account?{" "}
         <span
           className="font-semibold text-blue-900 cursor-pointer"
-          onClick={() => router.push("/login")}
+          onClick={() => router.push('/login')}
         >
           Log In
         </span>

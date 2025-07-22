@@ -1,25 +1,62 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
+import { useRouter } from "next/navigation";
 
-function page() {
-  const handleLoginSubmit = () => {};
+function Page() {
+  const [loginData, setLoginData] = useState({
+    username: "",
+    password: "",
+  });
+
+  const router = useRouter();
+  const handleLoginSubmit = () => {
+    
+  };
   return (
-    <div className="h-screen bg-amber-600 flex justify-center items-center">
-      <div className="w-96 h-96 bg-gray-600 rounded-2xl">
-        <form
-          onSubmit={handleLoginSubmit}
-          className="flex justify-center items-center flex-col"
-        >
-          <h1 className="text-3xl">Welcome Back</h1>
-          <div className="flex flex-col justify-center items-start">
+    <div className="bg-red-500 h-screen flex justify-center items-center">
+      <div className="bg-white w-96 h-[500px] rounded-4xl flex justify-center items-center flex-col gap-3">
+        <form onSubmit={handleLoginSubmit} className="flex flex-col gap-3">
+          <h1 className="flex justify-center text-3xl font-semibold flex-col gap-2">
+            Welcome Back
+          </h1>
+          <div className="flex flex-col">
             <label>Username</label>
-            <input type="text" name="" id="" />
+            <input
+              value={loginData.username}
+              type="text"
+              name="username"
+              className="border rounded-xl px-2 py-1"
+            />
           </div>
+          <div className="flex flex-col">
+            <label>Password</label>
+            <input
+              value={loginData.password}
+              type="text"
+              name="password"
+              className="border rounded-xl px-2 py-1"
+            />
+          </div>
+          <button
+            type="submit"
+            className="bg-amber-950 w-full text-white p-1 rounded-2xl cursor-pointer"
+          >
+            login
+          </button>
         </form>
+        <h2>
+          Don&apos;t have account ?{" "}
+          <span
+            className="text-blue-900 font-semibold cursor-pointer"
+            onClick={() => router.push("/")}
+          >
+            Sign up
+          </span>
+        </h2>
       </div>
     </div>
   );
 }
 
-export default page;
+export default Page;
