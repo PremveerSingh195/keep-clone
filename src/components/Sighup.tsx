@@ -16,7 +16,9 @@ function Sighup() {
     setSignupData({ ...signupData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = () => {};
+  const handleSubmit = (e:React.FormEvent) => {
+    e.preventDefault()
+  };
   return (
     <div className="bg-white w-96 h-[500px] rounded-4xl flex justify-center items-center flex-col gap-3">
       <form className="flex flex-col gap-3" onSubmit={handleSubmit}>

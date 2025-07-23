@@ -9,9 +9,13 @@ function Page() {
     password: "",
   });
 
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setLoginData({ ...loginData, [e.target.name]: e.target.value });
+  };
+
   const router = useRouter();
-  const handleLoginSubmit = () => {
-    
+  const handleLoginSubmit = (e:React.FormEvent) => {
+    e.preventDefault()
   };
   return (
     <div className="bg-red-500 h-screen flex justify-center items-center">
@@ -26,6 +30,7 @@ function Page() {
               value={loginData.username}
               type="text"
               name="username"
+              onChange={handleChange}
               className="border rounded-xl px-2 py-1"
             />
           </div>
@@ -33,8 +38,9 @@ function Page() {
             <label>Password</label>
             <input
               value={loginData.password}
-              type="text"
+              type="password"
               name="password"
+              onChange={handleChange}
               className="border rounded-xl px-2 py-1"
             />
           </div>
