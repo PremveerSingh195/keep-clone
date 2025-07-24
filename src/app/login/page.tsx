@@ -14,8 +14,8 @@ function Page() {
   };
 
   const router = useRouter();
-  const handleLoginSubmit = (e:React.FormEvent) => {
-    e.preventDefault()
+  const handleLoginSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
   };
   return (
     <div className="bg-red-500 h-screen flex justify-center items-center">
@@ -32,6 +32,7 @@ function Page() {
               name="username"
               onChange={handleChange}
               className="border rounded-xl px-2 py-1"
+              required
             />
           </div>
           <div className="flex flex-col">
@@ -42,6 +43,7 @@ function Page() {
               name="password"
               onChange={handleChange}
               className="border rounded-xl px-2 py-1"
+              required
             />
           </div>
           <button
