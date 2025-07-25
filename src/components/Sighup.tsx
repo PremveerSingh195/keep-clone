@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 
+
 function Sighup() {
   const [signupData, setSignupData] = useState({
     username: "",
@@ -10,14 +11,47 @@ function Sighup() {
     password: "",
   });
 
+  const [loading , setLoading] = useState(false)
+  const [message , setMessage] = useState("")
+
+
   const router = useRouter();
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSignupData({ ...signupData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e:React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    setLoading(true)
+    setMessage("")
+
+    try {
+      const res = await fetch("/api/signup", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(signupData)
+    })
+
+
+    const data = await res.json()
+  
+    if (res.ok) {
+      setMessage("Signup Successfull")
+      setSignupData({username:"" ,email:"" , password : "" })
+    } else {
+      setMessage(data.error || "Signup failed")
+    } 
+    } catch (error) {
+      setMessage("Something went wrong")
+    } finally {
+      setLoading(false)
+    }
+
+   router.push('/login')
+
   };
   return (
     <div className="bg-white w-96 h-[500px] rounded-4xl flex justify-center items-center flex-col gap-3">
