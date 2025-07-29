@@ -5,17 +5,45 @@ import { useRouter } from "next/navigation";
 
 function Page() {
   const [loginData, setLoginData] = useState({
-    username: "",
+    email: "",
     password: "",
   });
+
+    const [errorMsg , setErrorMsg] = useState("")
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setLoginData({ ...loginData, [e.target.name]: e.target.value });
   };
 
   const router = useRouter();
-  const handleLoginSubmit = (e: React.FormEvent) => {
+  const handleLoginSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    setErrorMsg("")
+
+    try {
+     const res =   await fetch("/api/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(loginData)
+      })
+
+      const data = await res.json()
+
+      if (!res.ok) {
+        setErrorMsg(data.message || "Login failed")
+      }
+
+      console.log(data , "data");
+      
+
+    } catch (error) {
+      setErrorMsg("Something went wrong. Please try again.")
+    }
+
+
   };
   return (
     <div className="bg-red-500 h-screen flex justify-center items-center">
@@ -25,11 +53,11 @@ function Page() {
             Welcome Back
           </h1>
           <div className="flex flex-col">
-            <label>Username</label>
+            <label>email</label>
             <input
-              value={loginData.username}
-              type="text"
-              name="username"
+              value={loginData.email}
+              type="email"
+              name="email"
               onChange={handleChange}
               className="border rounded-xl px-2 py-1"
               required

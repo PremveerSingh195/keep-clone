@@ -21,6 +21,8 @@ function Sighup() {
     setSignupData({ ...signupData, [e.target.name]: e.target.value });
   };
 
+  const [errorMsg , setErrorMsg] = useState("")
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setLoading(true)
