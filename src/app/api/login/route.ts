@@ -40,7 +40,7 @@ export async function POST(req: NextRequest) {
                 email: user.email
             }
         })
-    } catch (error) {
-        return NextResponse.json({ message: "Internal server error" }, { status: 500 })
+    } catch (err) {
+        return NextResponse.json({ message: `${err} Internal server error` }, { status: 500 } , )
     }
 }
