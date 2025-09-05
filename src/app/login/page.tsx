@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
+import Forgotpassword from "@/components/Forgotpassword";
 
 function Page() {
   const [loginData, setLoginData] = useState({
@@ -10,6 +11,7 @@ function Page() {
   });
 
     const [errorMsg , setErrorMsg] = useState("")
+    const [isModalOpen , setModalOpen] = useState(false)
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setLoginData({ ...loginData, [e.target.name]: e.target.value });
@@ -46,7 +48,7 @@ function Page() {
 
   };
   return (
-    <div className="bg-red-500 h-screen flex justify-center items-center">
+    <div className="bg-cover h-screen flex justify-center items-center" style={{backgroundImage : "url('https://images.pexels.com/photos/33498262/pexels-photo-33498262.jpeg')"}}>
       <div className="bg-white w-96 h-[500px] rounded-4xl flex justify-center items-center flex-col gap-3">
         <form onSubmit={handleLoginSubmit} className="flex flex-col gap-3">
           <h1 className="flex justify-center text-3xl font-semibold flex-col gap-2">
@@ -74,6 +76,7 @@ function Page() {
               required
             />
           </div>
+          
           <button
             type="submit"
             className="bg-amber-950 w-full text-white p-1 rounded-2xl cursor-pointer"
@@ -81,6 +84,12 @@ function Page() {
             login
           </button>
         </form>
+        <button onClick={()=> setModalOpen(true)} className="cursor-pointer onClick={()=> setModalOpen(true)}ointer">Forgot Password ?</button>
+          {
+           isModalOpen && <div className="fixed inset-0 flex items-center justify-center bg-black z-50">
+            <Forgotpassword setModalOpen={setModalOpen}/>
+           </div>
+          }
         <h2>
           Don&apos;t have account ?{" "}
           <span

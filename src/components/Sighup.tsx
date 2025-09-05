@@ -11,7 +11,8 @@ function Sighup() {
     password: "",
   });
 
-  const [message , setMessage] = useState("")
+  const [message, setMessage] = useState("")
+  const [loading, setLoading] = useState(false)
 
   const router = useRouter();
 
@@ -21,27 +22,34 @@ function Sighup() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    setLoading(true)
     setMessage("")
+
+    if (!signupData.email || !signupData.password) {
+      setMessage("Please fill in all fields");
+      return;
+    }
 
     try {
       const res = await fetch("/api/signup", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(signupData)
-    })
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(signupData)
+      })
 
-    const data = await res.json()
-  
-    if (res.ok) {
-      setMessage("Signup Successfull")
-    } else {
-      setMessage(data.error || "Signup failed")
-    } 
+      const data = await res.json()
+
+      if (res.ok) {
+        setMessage("Signup Successfull")
+      } else {
+        setMessage(data.error || "Signup failed")
+      }
     } catch (error) {
       setMessage("Something went wrong")
     } finally {
+      setLoading(false)
     }
   };
 
@@ -86,10 +94,16 @@ function Sighup() {
         </div>
         <button
           type="submit"
-          className="bg-amber-950 w-full text-white p-1 rounded-2xl cursor-pointer"
+          disabled={loading}
+          className="flex items-center justify-center px-4 py-2 bg-blue-600 text-white rounded-md disabled:opacity-70 cursor-pointer"
         >
-          Sign Up
+          {loading ? (
+            <div className="h-5 w-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+          ) : (
+            "Sign Up"
+          )}
         </button>
+
         {
           message && <p className="text-center text-red-600 font-semibold">{message}</p>
         }
