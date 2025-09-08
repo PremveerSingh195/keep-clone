@@ -1,11 +1,14 @@
 import React, { useState } from 'react'
 import Cross from './icons/Cross'
+import { useRouter } from 'next/navigation'
 
 interface Props {
     setModalOpen: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 function Forgotpassword({ setModalOpen }: Props) {
+
+    const router = useRouter()
 
     const [forgotData, setForgotData] = useState({ email: "", password: "" })
 
@@ -24,7 +27,9 @@ function Forgotpassword({ setModalOpen }: Props) {
                 },
                 body :JSON.stringify(forgotData)
             })
-
+        
+            router.push("/login")
+            setModalOpen(false)
             
         } catch (error) {
             
